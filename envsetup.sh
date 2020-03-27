@@ -19,11 +19,11 @@ if [[ "$*" =~ "clang"* ]]; then
         git clone https://github.com/kdrag0n/proton-clang --depth=1 "${KERNELDIR}"/clang
         COMPILER_STRING='Proton Clang (latest)'
 	COMPILER_TYPE='clang'
-elif [[ "$*" =~ "gcc10"* ]]; then
-        git clone https://github.com/RaphielGang/aarch64-raph-linux-android -b elf --depth=1 "${KERNELDIR}/gcc"
-        git clone https://github.com/baalajimaestro/arm-maestro-linux-gnueabi/ -b 240719 --depth=1 "${KERNELDIR}/gcc32"
-        COMPILER_STRING='GCC 10 (experimental)'
-	COMPILER_TYPE='GCC10'
+elif [[ "$*" =~ "gcc9"* ]]; then
+        git clone https://github.com/arter97/arm64-gcc.git -b master --depth=1 "${KERNELDIR}/gcc"
+        git clone git clone https://github.com/arter97/arm32-gcc.git -b master --depth=1 "${KERNELDIR}/gcc32"
+        COMPILER_STRING='GCC 9.x LTO'
+	COMPILER_TYPE='GCC19.x'
 elif [[ "$*" =~ "gcc4.9"* ]]; then
         git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 "${KERNELDIR}/gcc"
         cd gcc || exit
