@@ -112,7 +112,7 @@ cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
 
 # POST ZIP OR FAILURE
 cd "${ANYKERNEL}" || exit
-zip -r9 "${TEMPZIPNAME}" *
+zip -r9 "${ZIPNAME}" *
 
 "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
 
