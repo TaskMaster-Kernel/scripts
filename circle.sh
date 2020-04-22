@@ -114,10 +114,6 @@ cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
 cd "${ANYKERNEL}" || exit
 zip -r9 "${TEMPZIPNAME}" *
 
-## Sign the zip before sending it to telegram
-curl -sLo zipsigner-3.0.jar https://raw.githubusercontent.com/baalajimaestro/AnyKernel2/master/zipsigner-3.0.jar
-java -jar zipsigner-3.0.jar ${TEMPZIPNAME} ${ZIPNAME}
-
 "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
 
 cd ..
