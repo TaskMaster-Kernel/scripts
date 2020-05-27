@@ -11,7 +11,7 @@
 export TELEGRAM_TOKEN=${BOT_API_TOKEN}
 
 # Some misc enviroment vars
-DEVICE=X00T
+DEVICE=X00TD
 CIPROVIDER=CircleCI
 
 # Clone our AnyKernel3 branch to KERNELDIR
@@ -87,7 +87,7 @@ START=$(date +"%s")
 
 mkdir ${KERNELDIR}/out
 
-make O=out ARCH=arm64 X00T_defconfig
+make O=out ARCH=arm64 X00TD_defconfig
 if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
         make -j"${JOBS}" CC=clang CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out ARCH=arm64
 elif [[ "${COMPILER_TYPE}" =~ "GCC9"* ]]; then
