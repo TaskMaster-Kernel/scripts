@@ -16,7 +16,7 @@ OUTDIR=${KERNELDIR}/out
 
 # Pick your poison
 if [[ "$*" =~ "clang"* ]]; then
-        git clone https://github.com/kdrag0n/proton-clang --depth=1 "${KERNELDIR}"/clang
+        git clone https://github.com/Danish1999/proton-clang --depth=1 "${KERNELDIR}"/clang
         COMPILER_STRING='Proton Clang (latest)'
 	COMPILER_TYPE='clang'
 elif [[ "$*" =~ "gcc9"* ]]; then
