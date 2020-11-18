@@ -15,7 +15,7 @@ DEVICE=X00TD
 CIPROVIDER=CircleCI
 
 # Clone our AnyKernel3 branch to KERNELDIR
-git clone https://github.com/Danish1999/AnyKernel3 anykernel3
+git clone https://github.com/adiatul16/AnyKernel3.git -b asus anykernel3
 export ANYKERNEL=$(pwd)/anykernel3
 
 # Parse git things
@@ -27,28 +27,28 @@ COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
 if [[ "${PARSE_BRANCH}" =~ "staging"* ]]; then
 	# For staging branch
 	KERNELTYPE=nightly
-	KERNELNAME="Acrux-${KERNELRELEASE}-Nightly-${KERNELFW}-$(date +%y%m%d-%H%M)"
+	KERNELNAME="TaskMaster-${KERNELRELEASE}-Nightly-${KERNELFW}-$(date +%y%m%d-%H%M)"
 	sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/acrux_defconfig
         # Disable LTO on non-release builds
         sed -i 's/CONFIG_LTO=y/CONFIG_LTO=n/g' arch/arm64/configs/acrux_defconfig
         sed -i 's/# CONFIG_LTO_NONE is not set/CONFIG_LTO_NONE=y/g' arch/arm64/configs/acrux_defconfig
         sed -i 's/CONFIG_LTO_CLANG=y/CONFIG_LTO_CLANG=n/g' arch/arm64/configs/acrux_defconfig
 elif [[ "${PARSE_BRANCH}" =~ "ten"* ]]; then
-	# For stable (ten) branch
+	# For stable (eleven) branch
 	KERNELTYPE=stable
-	KERNELNAME="Acrux-${KERNELRELEASE}-Release-${KERNELFW}-$(date +%y%m%d-%H%M)"
+	KERNELNAME="TaskMaster-${KERNELRELEASE}-Release-${KERNELFW}-$(date +%y%m%d-%H%M)"
         sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/acrux_defconfig
 else
 	# Dunno when this will happen but we will cover, just in case
 	KERNELTYPE=${PARSE_BRANCH}
-	KERNELNAME="Vortex-${KERNELRELEASE}-${PARSE_BRANCH}-$(date +%y%m%d-%H%M)"
+	KERNELNAME="TaskMaster-${KERNELRELEASE}-${PARSE_BRANCH}-$(date +%y%m%d-%H%M)"
 fi
 
 export KERNELTYPE KERNELNAME
 
 # Workaround for long af kernel strings
-git config --global user.name "Danish1999"
-git config --global user.email "danish01031999@gmail.com"
+git config --global user.name "adiatul16"
+git config --global user.email "adiatul16@gmail.com"
 git add .
 git commit -m "stop adding dirty"
 
@@ -57,7 +57,7 @@ export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
 export ZIPNAME="${KERNELNAME}.zip"
 
 # Our TG channels
-export CI_CHANNEL="-1001373270821"
+export CI_CHANNEL=""
 
 # sendcast to channel
 tg_channelcast() {
@@ -70,7 +70,7 @@ tg_channelcast() {
 }
 
 # Let's announce our naisu new kernel!
-tg_groupcast "Vortex compilation clocked at $(date +%Y%m%d-%H%M)!"
+tg_groupcast "TaskMaster compilation clocked at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "Compiler: <code>${COMPILER_STRING}</code>" \
 	"Device: <b>${DEVICE}</b>" \
 	"Kernel: <code>Vortex, release ${KERNELRELEASE}</code>" \
@@ -87,7 +87,7 @@ START=$(date +"%s")
 
 mkdir ${KERNELDIR}/out
 
-make O=out ARCH=arm64 X00TD_defconfig
+make O=out ARCH=arm64 taskmaster_defconfig
 if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
         make -j"${JOBS}" CC=clang CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- O=out ARCH=arm64
 elif [[ "${COMPILER_TYPE}" =~ "GCC9"* ]]; then
